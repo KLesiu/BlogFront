@@ -5,7 +5,7 @@ body{
  background-position: center;
  
  min-height: 100vh;
-  font-family: 'Noto Sans', sans-serif;
+ font-family: 'Ysabeau Office', sans-serif;
   margin: 0;
   padding: 0;
   width: 100vw;
@@ -22,7 +22,7 @@ header h1{
   font-size: 70px;
   font-weight: 700;
 }
-.preloadContainer{
+.preloadContainer,form{
   align-items: center;
   background-color: rgba(0, 0, 0, 0.514);
   display: flex;
@@ -41,12 +41,60 @@ header h1{
   justify-content: center;
   font-size: 50px;
   font-weight: 700;
-  height: 20%;
-  margin-top: 8%;
+  height: 100%;
   
-  width: 30%;
+  width: 100%;
+ 
 
-}
+ }
 .preloadContainer button:hover{
   background-color: rgba(0, 0, 0, 0.747);
+}
+.preloadContainer a{
+  
+  height: 20%;
+  margin-top: 8%;
+  text-decoration: none;
+  width: 30%;
+}
+form{
+  flex-direction: column;
+  font-family: 'Ysabeau Office', sans-serif;
+}
+form label{
+  background-color: rgba(255, 255, 255, 0.815);
+  border-radius: 20px;
+  color: black;
+  font-size: 40px;
+  height: 10%;
+  text-align: center;
+  margin-top: 20px;
+  width: 40%;
+}
+form input{
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  color: black;
+  height: 10%;
+  
+  font-size: 30px;
+  margin-top: 20px;
+  width: 40%;
+}
+form button{
+  background-color: white;
+  border: none;
+  border-radius: 20px;
+  color:black;
+  cursor: pointer;
+  height: 10%;
+  font-size: 50px;
+  font-family: 'Ysabeau Office', sans-serif;
+  margin-top: 20px;
+  width: 30%;
+}
+form button:hover{
+  background-color: rgba(255, 255, 255, 0.548);
+  
 }

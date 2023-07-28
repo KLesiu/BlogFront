@@ -1,12 +1,30 @@
 import Header from './components/Header';
 import Preload from './components/Preload';
-import './App.css';
+import Form from './components/Form';
+
+import { BrowserRouter,Link } from 'react-router-dom';
+import { Routes,Route } from 'react-router-dom';
+import { useState } from 'react';
 
 function App() {
   return (
     <div id='container'>
+    <BrowserRouter>
     <Header />
-    <Preload />
+    <Routes>
+    <Route path='/' element={
+      <Preload />
+    }></Route>
+    <Route path='/form' element={
+      <Form />
+    }></Route>
+    <Route path='/login' element={
+      "Hello"
+    }></Route>
+    </Routes>
+    
+    </BrowserRouter>
+    
     </div>
   
   );
