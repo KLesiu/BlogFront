@@ -1,14 +1,16 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { useState } from "react";
 
 const Form=(props)=>{
+    const [errors,setErrors]= useState('')
     const register= async(event)=>{
        event.preventDefault();
         let name = document.querySelector("#registerName").value
         let pass = document.querySelector("#registerPass").value
         let cpass = document.querySelector("#registerCPass").value
         if(pass !== cpass){
-            return console.log("Passwords arent same")
+            return setErrors("Passwords arent the same!")
         }
        const response = await fetch("http://localhost:3001/api/auth/register",{
         method:"POST",
@@ -22,7 +24,15 @@ const Form=(props)=>{
         })
        })
        if(response.ok){
+        setErrors([])
         return window.location.href= "/login"
+       }else{
+        if(name || pass || cpass===""){
+            return setErrors("All fields are required")
+        }else{
+            return setErrors('We have a user with this username!')
+        }
+        
        }
     }
     const login=async(event)=>{
@@ -65,6 +75,7 @@ const Form=(props)=>{
                 <label htmlFor="cpassword">Repeat password:</label>
                 <input id="registerCPass" type="password" name="cpassword"></input>
                 <button>REGISTER</button>
+                <p id="registerErrors">{errors}</p>
             </form>
         )
     }else{

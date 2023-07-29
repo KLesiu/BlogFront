@@ -1,7 +1,7 @@
 import Header from './components/Header';
 import Preload from './components/Preload';
 import Form from './components/Form';
-
+import Blog from './components/Blog';
 import { BrowserRouter,Link } from 'react-router-dom';
 import { Routes,Route } from 'react-router-dom';
 import { useState } from 'react';
@@ -21,6 +21,9 @@ function App() {
     }></Route>
     <Route path='/login' element={
       <Form type="login" />
+    }></Route>
+    <Route path='/blog' element={
+      <Blog />
     }></Route>
     </Routes>
     
