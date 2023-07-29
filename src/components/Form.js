@@ -25,16 +25,59 @@ const Form=(props)=>{
         return window.location.href= "/login"
        }
     }
-    return(
-        <form onSubmit={register}>
+    const login=async(event)=>{
+        event.preventDefault();
+        let name = document.querySelector("#loginName").value
+        let pass = document.querySelector("#loginPass").value
+        const response = await fetch("http://localhost:3001/api/auth/login",{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                name: name,
+                password : pass,
+                
+            })
+           }).then(function(response){
+            return response.json()
+           }).then(function(data){
+            const token = data.token
+            console.log(token)
+            localStorage.setItem("token",token)
+            return 'authorized'
+           }).catch(function(err){
+            return console.log(err)
+           })
+           if(response==='authorized'){
+            window.location.href="/blog"
+           }
+
+        
+    }
+    if(props.type==='register'){
+        return(
+            <form onSubmit={register}>
+                <label htmlFor="name">Username:</label>
+                <input id="registerName" name="name" type="text"></input>
+                <label htmlFor="password">Password:</label>
+                <input id="registerPass" type="password" name="password"></input>
+                <label htmlFor="cpassword">Repeat password:</label>
+                <input id="registerCPass" type="password" name="cpassword"></input>
+                <button>REGISTER</button>
+            </form>
+        )
+    }else{
+        return(
+            <form onSubmit={login}>
             <label htmlFor="name">Username:</label>
-            <input id="registerName" name="name" type="text"></input>
+            <input id="loginName" name="name" type="text"></input>
             <label htmlFor="password">Password:</label>
-            <input id="registerPass" type="password" name="password"></input>
-            <label htmlFor="cpassword">Repeat password:</label>
-            <input id="registerCPass" type="password" name="cpassword"></input>
-            <button>REGISTER</button>
+            <input id="loginPass" type="password" name="password"></input>
+            <button>LOGIN</button>
         </form>
-    )
+        )
+    }
+   
 }
 export default Form

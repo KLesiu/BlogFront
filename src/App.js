@@ -7,6 +7,7 @@ import { Routes,Route } from 'react-router-dom';
 import { useState } from 'react';
 
 function App() {
+
   return (
     <div id='container'>
     <BrowserRouter>
@@ -16,10 +17,10 @@ function App() {
       <Preload />
     }></Route>
     <Route path='/form' element={
-      <Form />
+      <Form type="register"  />
     }></Route>
     <Route path='/login' element={
-      "Hello"
+      <Form type="login" />
     }></Route>
     </Routes>
     
