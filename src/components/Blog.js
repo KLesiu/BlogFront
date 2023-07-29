@@ -35,12 +35,12 @@ const Blog =(props)=>{
             <div id="postCardsContainer">
                 {posts.map((element)=>{
                     return (
-                        <div className="postCard" key={uniqid()}>
-                            <h3>{element.title}</h3>
-                            <p>{element.body}</p>
-                            <p>Created: {element.createdAt}</p>
-                            <p>Last update: {element.updatedAt}</p>
-                        </div>
+                        <a href={`/blog/${element._id}`} className="postCard"><div  key={uniqid()}>
+                        <h3>{element.title}</h3>
+                        <p>{element.body}</p>
+                        <p>Created: {element.createdAt}</p>
+                        <p>Last update: {element.updatedAt}</p>
+                    </div></a>  
                     )
                 })}
             </div>

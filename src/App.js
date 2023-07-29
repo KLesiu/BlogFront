@@ -2,12 +2,15 @@ import Header from './components/Header';
 import Preload from './components/Preload';
 import Form from './components/Form';
 import Blog from './components/Blog';
+import PostDetail from './components/PostDetail';
 import { BrowserRouter,Link } from 'react-router-dom';
 import { Routes,Route } from 'react-router-dom';
 import { useState } from 'react';
 
-function App() {
 
+function App() {
+  
+  
   return (
     <div id='container'>
     <BrowserRouter>
@@ -24,6 +27,9 @@ function App() {
     }></Route>
     <Route path='/blog' element={
       <Blog />
+    }></Route>
+    <Route path='/blog/:id' element={
+      <PostDetail  />
     }></Route>
     </Routes>
     
