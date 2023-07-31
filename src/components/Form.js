@@ -53,13 +53,14 @@ const Form=(props)=>{
             return response.json()
            }).then(function(data){
             const token = data.token
-            console.log(token)
+            localStorage.setItem('username',name)
             localStorage.setItem("token",token)
             return 'authorized'
            }).catch(function(err){
             return console.log(err)
            })
            if(response==='authorized'){
+            
             window.location.href="/blog"
            }
 
@@ -80,7 +81,7 @@ const Form=(props)=>{
         )
     }else{
         return(
-            <form onSubmit={login}>
+            <form onSubmit={login} onSubmitCapture={props.getUsername}>
             <label htmlFor="name">Username:</label>
             <input id="loginName" name="name" type="text"></input>
             <label htmlFor="password">Password:</label>

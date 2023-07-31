@@ -233,6 +233,25 @@ li{
 .addCommentContainer button:hover{
   background-color: rgb(27, 211, 119);
 }
+header div{
+  position: absolute;
+  right: 0;
+}
+header div a button{
+  background-color: rgb(211, 211, 211);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 30px;
+  width: 80px;
+}
+header div a button:hover{
+  background-color: rgb(175, 175, 175);
+}
+
+
+
+
 .hidden{
   display: none;
 }
