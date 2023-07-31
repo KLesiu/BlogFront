@@ -31,6 +31,7 @@ function App() {
     <Route path='/blog/:id' element={
       <PostDetail  />
     }></Route>
+    
     </Routes>
     
     </BrowserRouter>

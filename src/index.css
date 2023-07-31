@@ -185,7 +185,7 @@ a{
 .commentsBox{
   background-color: rgba(255, 255, 255, 0.959); 
   border-radius: 20px;
-  
+  position: relative;
   margin-top: 30px;
   padding: 20px;
   width: 80%;
@@ -193,4 +193,46 @@ a{
 .commentsBox h2{
   border-bottom: 2px solid black;
   font-size: 30px;
+}
+.addComment{
+  align-items: center;
+  background-color: rgb(166, 209, 166);
+  border: none;
+  border-radius: 20px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  height: 15%;
+  font-size: 20px;
+  font-family: 'Ysabeau Office', sans-serif;
+  padding: 5px;
+  position: absolute;
+  right: 5%;
+  top: 6%;
+  
+}
+.addComment:hover{
+  background-color: rgb(67, 175, 67);
+}
+li{
+  list-style-type: none;
+}
+.addCommentContainer{
+  display: flex;
+
+}
+.addCommentContainer button{
+  background-color: rgb(149, 214, 184);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  
+  margin-left: 10px;
+  width: 6%;
+}
+.addCommentContainer button:hover{
+  background-color: rgb(27, 211, 119);
+}
+.hidden{
+  display: none;
 }
