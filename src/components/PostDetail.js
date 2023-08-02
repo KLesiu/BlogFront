@@ -23,6 +23,7 @@ const PostDetail = (props)=>{
         })
     }
     const getComments = async()=>{
+        
         const res = await fetch(`http://localhost:3001/api/posts/${id}/comments`).then(function(ele){
             
            return ele.json()
@@ -41,20 +42,46 @@ const PostDetail = (props)=>{
                 data.map((ele)=>{
                     arr.push(ele)
                 })
+                
                 return setComments(arr)
 
             }
             
         )
+       
     }
     const showCommentForm=()=>{
         const div = document.querySelector(".addCommentContainer")
         div.classList.toggle("hidden")
     }
+    const addComment= async()=>{
+        const post = id
+       
+        const body = document.querySelector('.newComment').value
+        const token = localStorage.getItem('token')
+        
+        const response = await fetch(`http://localhost:3001/api/posts/${post}/add-comment`,{
+            method:'POST',
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token} `
+            },
+            body:JSON.stringify({
+               body:body 
+            })
+        }).then(function(res){
+           
+            return res.json()
+        })
+      
+       location.reload(true)
+        
+    }   
     
     useEffect(()=>{
         getDetail()
         getComments()
+        
     },[])
     
 return(
@@ -66,19 +93,21 @@ return(
         </div>
         <div className="commentsBox">
             <h2>Comments:</h2>
-            {
+            <ul id="commentsHolder">
+            {    
                 comments.map((ele)=>{
+                  
                     return(
-                        <li key={uniqid()}>
+                        <li className="comment" key={uniqid()}>
                             <h3>{ele.username}</h3>
                             <p>{ele.body}</p>
                         </li>
                     )
                 })
-            }
+            }</ul>
             <div className="addCommentContainer hidden">
-            <textarea className="newComment"/>
-            <button>ADD</button>
+            <textarea name="newComment" className="newComment"/>
+            <button onClick={addComment}>ADD</button>
             </div>
             
             <button onClick={showCommentForm}  className="addComment">Add comment</button>

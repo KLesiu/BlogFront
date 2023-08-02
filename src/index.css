@@ -248,7 +248,50 @@ header div a button{
 header div a button:hover{
   background-color: rgb(175, 175, 175);
 }
+.logoutDiv{
+  align-items: center;
+  display: flex;
+  justify-content: space-around;
+  width: 20%;
 
+}
+.logoutDiv button{
+
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  height: 60px;
+  font-size: 20px;
+  width: 30%;
+}
+.logoutDiv button:hover{
+  background-color: rgba(182, 182, 182, 0.61);
+}
+.logoutDiv h3{
+  background-color: white;
+  border-radius: 10px;
+  font-size: 25px;
+  height: 60px;
+  padding: 10px;
+}
+#commentsHolder{
+  display: flex;
+  flex-direction: column;
+}
+.comment{
+  display: flex;
+  justify-content: flex-start;
+  height: 70px;
+  flex-direction: column;
+  
+}
+.comment h3,p{
+  margin: 0;
+}
+.comment p{
+  border-top: 1px solid black;
+  width: 50%;
+}
 
 
 
