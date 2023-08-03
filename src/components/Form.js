@@ -53,19 +53,23 @@ const Form=(props)=>{
             return response.json()
            }).then(function(data){
             const token = data.token
+            
             localStorage.setItem('username',name)
             localStorage.setItem("token",token)
+            localStorage.setItem('id',data.req._id)
             return 'authorized'
            }).catch(function(err){
             return console.log(err)
            })
            if(response==='authorized'){
-            
-            window.location.href="/blog"
+           
+           return window.location.href="/blog"
            }
 
         
     }
+    
+  
     if(props.type==='register'){
         return(
             <form onSubmit={register}>
@@ -79,7 +83,19 @@ const Form=(props)=>{
                 <p id="registerErrors">{errors}</p>
             </form>
         )
-    }else{
+    }
+    else if(props.type==="admin"){
+        return(
+            <form onSubmit={login} onSubmitCapture={props.getUsername}>
+            <label htmlFor="name">Username:</label>
+            <input id="adminName" name="name" type="text"></input>
+            <label htmlFor="password">Password:</label>
+            <input id="adminPass" type="password" name="password"></input>
+            <button>LOGIN</button>
+        </form>
+        )
+    }
+    else{
         return(
             <form onSubmit={login} onSubmitCapture={props.getUsername}>
             <label htmlFor="name">Username:</label>

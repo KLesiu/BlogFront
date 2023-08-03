@@ -6,6 +6,7 @@ const Header=(props)=>{
     const logout=()=>{
         localStorage.removeItem("username")
         localStorage.removeItem('token')
+        localStorage.removeItem('admin')
         setUsername('')
         document.querySelector('.logoutDiv').classList.add("hidden")
         

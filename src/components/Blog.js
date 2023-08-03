@@ -8,11 +8,13 @@ const Blog =(props)=>{
     const [list,setList]= useState('')
     const getPosts = async()=>{
         const response = await fetch("http://localhost:3001/api/posts").then(function(data){
+            
             return data.json()
         }).then(function(data){
             const count = data.length
             const array = []
-            for(let i = 0;i<3;i++){
+            console.log(data)
+            for(let i = 0;i<count;i++){
                 array.push(data[i])
 
             }
