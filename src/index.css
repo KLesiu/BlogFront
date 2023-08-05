@@ -291,8 +291,20 @@ header div a button:hover{
   border-top: 1px solid black;
   width: 50%;
 }
-
-
+.deleteButton{
+  background-color: rgb(180, 93, 93);
+  border: none;
+  border-radius: 10px;
+  cursor: pointer;
+  font-size: 20px;
+  position: absolute;
+  right: 15%;
+  padding: 5px;
+  width: 5%;
+}
+.deleteButton:hover{
+  background-color: rgb(235, 0, 0);
+}
 
 .hidden{
   display: none;

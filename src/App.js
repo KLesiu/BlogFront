@@ -37,8 +37,9 @@ function App() {
       <Form  type="admin"/>
     }></Route>
     <Route path='/admin/add-post' element={
-      <AddPost/>
+      <AddPost type="add"/>
     }></Route>
+    <Route path='/blog/:id/edit' element={<AddPost type="edit"/>}/>
     </Routes>
     
     </BrowserRouter>

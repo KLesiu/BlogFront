@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from "react";
+import { useParams } from 'react-router-dom';
 
 const AddPost=(props)=>{
+    const {id} = useParams()
     const [admin ,setAdmin]= useState('')
-    const [errors,setErrors]= useState('')
+    
+    const [Oldtitle,setOldTitle]=useState('')
+    const [Oldbody,setOldBody]=useState('')
    const isAdmin=async()=>{
     const id = localStorage.getItem("id")
     
@@ -52,7 +56,7 @@ const AddPost=(props)=>{
     }).catch((err)=>{
         console.log(err)
     }).then((data)=>{
-        setErrors([])
+        
         return data.json()
     }).then(()=>{
         return window.location.href="http://localhost:3000/blog"
@@ -60,27 +64,85 @@ const AddPost=(props)=>{
 
    
    }
+   const getInfo=async()=>{
+        const response = await fetch(`http://localhost:3001/api/posts/${id}`).then(function(ele){
+            return ele.json()
+        }).then((data)=>{
+            setOldTitle(data.title)
+            setOldBody(data.body)
+        })
+        
+   }
+   const editPost=async()=>{
+    event.preventDefault();
+    let title = document.querySelector("#title").value
+    let body = document.querySelector("#body").value
+    const token = localStorage.getItem('token')
+    const response = await fetch(`http://localhost:3001/api/posts/${id}/update`,{
+        method:"POST",
+        headers:{
+            "Content-Type":"application/json",
+            "Authorization": `Bearer ${token} `
+        },
+        body:JSON.stringify({
+            title:title,
+            body:body,
+            
+        })
+    }).catch((err)=>{
+        console.log(err)
+    }).then((data)=>{
+        
+        return data.json()
+    }).then(()=>{
+        return window.location.href="http://localhost:3000/blog"
+    })
+   }
    useEffect(()=>{
     isAdmin()
+    if(props.type==='edit'){
+    getInfo()
+    }
+    
    },[])
-   if(admin===true){
-    return(
-        <form onSubmit={addPost}>
-            <label htmlFor="title">Title:</label>
-            <input id="title" name="title"></input>
-            <label htmlFor="body">Body:</label>
-            <textarea id="body" name="body"></textarea>
-            <label htmlFor="published">Public:</label>
-            <input placeholder="true/false" id="published" type="text" name="published"></input>
-            <button>Add Post</button>
-        </form>
-    )
-   }else{
-    return(
-        <p>No permissions</p>
-    )
+   if(props.type==='add'){
+    if(admin===true){
+        return(
+            <form onSubmit={addPost}>
+                <label htmlFor="title">Title:</label>
+                <input id="title" name="title"></input>
+                <label htmlFor="body">Body:</label>
+                <textarea id="body" name="body"></textarea>
+                <label htmlFor="published">Public:</label>
+                <input placeholder="true/false" id="published" type="text" name="published"></input>
+                <button>Add Post</button>
+            </form>
+        )
+       }else{
+        return(
+            <p>No permissions</p>
+        )
+       }
+       
+   }else if(props.type==="edit"){
+    if(admin===true){
+        return(
+            <form onSubmit={editPost}>
+                <label htmlFor="title">Title:</label>
+                <input id="title" placeholder={Oldtitle} name="title"></input>
+                <label htmlFor="body">Body:</label>
+                <textarea defaultValue={Oldbody} id="body" name="body"></textarea>
+                
+                <button>Edit Post</button>
+            </form>
+        )
+       }else{
+        return(
+            <p>No permissions</p>
+        )
+       }
    }
-   
+  
     
 }
 export default AddPost

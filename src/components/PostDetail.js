@@ -8,6 +8,7 @@ const PostDetail = (props)=>{
     const [detail,setDetail]= useState('')
     const [comments,setComments]=useState([])
     const [showAllComments,setShowAllComments]=useState('')
+    const [admin,setAdmin]=useState('')
     const getDetail = async()=>{
         const res = await fetch(`http://localhost:3001/api/posts/${id}`).then(function(ele){
             return ele.json()
@@ -76,43 +77,116 @@ const PostDetail = (props)=>{
       
        location.reload(true)
         
+    }
+    const isAdmin=async()=>{
+       
+        const id = localStorage.getItem("id")
+        
+        const response = await fetch('http://localhost:3001/api/auth/isAdmin',{
+            method:"POST",
+            headers:{
+                "Content-Type":"application/json"
+            },
+            body:JSON.stringify({
+                _id:id 
+            })
+        }).then(function(res){
+            return res.json()
+        }).then(function(res){
+            const admin = res.admin
+            setAdmin(admin)
+            return admin
+        })
+        
+       
+        
+    }
+    const deletePost=async()=>{
+        const token = localStorage.getItem('token')
+        const response = await fetch(`http://localhost:3001/api/posts/${id}/delete`,{
+            method:'POST',
+            headers:{
+                "Content-Type":"application/json",
+                "Authorization": `Bearer ${token} `
+            }
+
+        }).then((res)=>{
+            return res.json()
+        }).then((data)=>
+        console.log(data))
+        window.location.href="http://localhost:3000/blog"
     }   
     
     useEffect(()=>{
         getDetail()
         getComments()
-        
+        isAdmin()
     },[])
-    
-return(
-    <div className="detailContainer">
-        <div className="detailBox">
-        <h2>{detail.title}</h2>
-        <p>Created at: {detail.createdAt};  Last Update: {detail.updatedAt}</p>
-        <p>{detail.body}</p>
-        </div>
-        <div className="commentsBox">
-            <h2>Comments:</h2>
-            <ul id="commentsHolder">
-            {    
-                comments.map((ele)=>{
-                  
-                    return(
-                        <li className="comment" key={uniqid()}>
-                            <h3>{ele.username}</h3>
-                            <p>{ele.body}</p>
-                        </li>
-                    )
-                })
-            }</ul>
-            <div className="addCommentContainer hidden">
-            <textarea name="newComment" className="newComment"/>
-            <button onClick={addComment}>ADD</button>
+    if(admin===false){
+        return(
+            <div className="detailContainer">
+                <div className="detailBox">
+                <h2>{detail.title}</h2>
+              
+                <p>Created at: {detail.createdAt};  Last Update: {detail.updatedAt}</p>
+                <p>{detail.body}</p>
+                </div>
+                <div className="commentsBox">
+                    <h2>Comments:</h2>
+                    <ul id="commentsHolder">
+                    {    
+                        comments.map((ele)=>{
+                          
+                            return(
+                                <li className="comment" key={uniqid()}>
+                                    <h3>{ele.username}</h3>
+                                    <p>{ele.body}</p>
+                                </li>
+                            )
+                        })
+                    }</ul>
+                    <div className="addCommentContainer hidden">
+                    <textarea name="newComment" className="newComment"/>
+                    <button onClick={addComment}>ADD</button>
+                    </div>
+                    
+                    <button onClick={showCommentForm}  className="addComment">Add comment</button>
+                </div>
             </div>
-            
-            <button onClick={showCommentForm}  className="addComment">Add comment</button>
-        </div>
-    </div>
-)
+        )
+    }else{
+        return(
+            <div className="detailContainer">
+                <div className="detailBox">
+                <h2>{detail.title}</h2>
+                <button onClick={deletePost} className="deleteButton">Delete</button>
+                <p>Created at: {detail.createdAt};  Last Update: {detail.updatedAt}</p>
+                <p>{detail.body}</p>
+                </div>
+                <div className="commentsBox">
+                    <h2>Comments:</h2>
+                    <ul id="commentsHolder">
+                    {    
+                        comments.map((ele)=>{
+                          
+                            return(
+                                <li className="comment" key={uniqid()}>
+                                    <h3>{ele.username}</h3>
+                                    <p>{ele.body}</p>
+                                </li>
+                            )
+                        })
+                    }</ul>
+                    <div className="addCommentContainer hidden">
+                    <textarea name="newComment" className="newComment"/>
+                    <button onClick={addComment}>ADD</button>
+                    </div>
+                    
+                    <button onClick={showCommentForm}  className="addComment">Add comment</button>
+                </div>
+            </div>
+        )
+    }
+
 }
 export default PostDetail
